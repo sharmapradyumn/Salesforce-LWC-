@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Contacts" icon-name="standard:contact">
+        <p class="slds-p-horizontal_small">
+            {contactssize} items
+        </p>
+        <!--template if:true={contactlist}>
+            <lightning-datatable key-field="Id" data={contactlist} columns={columns}>
+            </lightni-->
+
+        <template if:true={contactlist}>
+            <c-do-pagination records={contactlist} show-table="true" columns={columns} recordsperpage="3">
+            </c-do-pagination>
+        </template>
+
+    </lightning-card>
+</template>

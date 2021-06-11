@@ -1,0 +1,63 @@
+<template>
+    <lightning-card title="New Opportunity" icon-name="standard:Opportunity" class="slds-grid_vertical-align-center">
+        <div>
+            <lightning-layout>
+                <lightning-layout-item>
+                    <lightning-input label="Opportunity Name" value={oppRec.Name} onchange={handleNameChange}>
+                    </lightning-input>
+
+
+                    <template if:true={stageValues.data}>
+                        <lightning-combobox name="progress" label="Opportunity Stage" value={value}
+                            options={stageValues.data.values} onchange={handleStageChange}>
+                        </lightning-combobox>
+                    </template>
+                </lightning-layout-item>
+
+                <lightning-layout-item>
+                    <c-list-of-account-record obj-name="Account" search-placeholder="Search Accounts"
+                        icon-name="standard:account" onlookupselected={handleAccountSelection}>
+                    </c-list-of-account-record>
+
+                    <lightning-input type="date" label="Close Date" value={oppRec.CloseDate}
+                        onchange={handleCloseDateChange}></lightning-input><br />
+
+
+                    <lightning-button label="Save" onclick={handleSaveOpportunity}></lightning-button>
+
+
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+
+
+
+    </lightning-card>
+</template>
+
+
+<!--   
+
+<lightning-card title="New Opportunity" icon-name="standard:Opportunity">
+            <div class="slds-p-around_x-small">
+                <lightning-input label="Opportunity Name" value={oppRec.Name} onchange={handleNameChange}></lightning-input>
+               
+                <label>Select Stage</label>
+                <select class="slds-select"   onchange={handleStageChange}>
+                    <option value="None">---Not Selected---</option>
+                    <option value="Qualification">Qualification</option>
+                    <option value="Prospecting">Prospecting</option>
+                    <option value="Closed Won">Closed Won</option>
+                    <option value="Closed Lost">Closed Lost</option>
+                </select>
+                <lightning-input type="date" label="Close Date" value={oppRec.CloseDate} onchange={handleCloseDateChange}></lightning-input><br/>
+                <lightning-button label="Save" onclick={handleSaveOpportunity}></lightning-button>
+            </div>
+        </lightning-card>
+
+
+
+
+
+-->

@@ -1,0 +1,136 @@
+<template>
+
+    <div>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <div id="box" class={boxClass} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                            role="none">
+
+                            <template if:true={isValueSelected}>
+                                <label class="slds-form-element__label" for="combobox-id-3">Account Name</label>
+                                <div id="lookup-pill" class="slds-pill-container">
+                                    <lightning-icon icon-name="standard:account" size="small"></lightning-icon>
+                                    <lightning-pill class="pillSize" label={selectedName} name={selectedName}
+                                        onremove={handleRemovePill} href={href}>
+
+                                    </lightning-pill>
+                                </div>
+
+                            </template>
+
+                            <template if:false={isValueSelected}>
+                                <div class="slds-p-top_none">
+                                    <lightning-icon size="x-small"
+                                        class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                                        icon-name="utility:search"></lightning-icon>
+                                    <label>Account Name</label>
+                                    <input type="search" class={boxClass} id="combobox-id-11" aria-autocomplete="list"
+                                        aria-controls="listbox-id-9" autocomplete="off" role="textbox"
+                                        placeholder={searchPlaceholder} value={searchTerm} onchange={Searchhandler}
+                                        onblur={onBlur} onclick={handleClick} />
+
+                                </div>
+                            </template>
+
+                        </div>
+                        <div id="listbox-id-9">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={searchedAccountData} for:item="record">
+                                    <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation"
+                                        data-name={record.Name}>
+                                        <span class="slds-lookup__item-action slds-lookup__item-action--label"
+                                            role="option">
+                                            <lightning-icon icon-name="standard:account" size="small"></lightning-icon>
+                                            <span class="slds-truncate">{record.Name}</span>
+                                        </span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+<!-- <lightning-datatable key-field="id" data={accounts.data} columns={columns}>
+
+    </lightning-datatable>-->
+
+
+
+
+
+<!-- <template for:each={accounts.data} for:item="acc">
+
+    {searchedAccountData} 
+onchange={Searchhandler}
+                        <ul key={acc.id}>
+                            <li role="presentation" class="slds-listbox__item">
+                                <div key={acc.id}
+                                    class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                    role="option">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                            <span class="slds-truncate" title="Dickenson plc">{acc.Name}</span>
+                                    </span>
+                                </div>
+                            </li>
+onchange={Searchhandler}
+
+                        </ul>
+
+
+
+
+
+ <template if:true={isValueSelected}>
+                                <div id="lookup-pill" class="slds-pill-container">
+                                    <lightning-pill class="pillSize" label={selectedName} name={selectedName}
+                                        onremove={handleRemovePill} href={href}>
+                                        <lightning-icon icon-name={iconName} alternative-text="acc"></lightning-icon>
+                                    </lightning-pill>
+                                </div>
+                            </template>
+
+
+
+<template if:false={isValueSelected}>
+                                <div class="slds-p-top_none">
+
+                                    <input type="text" class={boxClass} id="combobox-id-11"
+                                        aria-autocomplete="list" aria-controls="listbox-id-9" autocomplete="off"
+                                        role="textbox" placeholder="Search..." value={searchTerm}
+                                        onchange={Searchhandler} onblur={onBlur} onclick={handleClick} />
+                                </div>
+                            </template>
+
+
+
+<div id="listbox-id-1"
+                            class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                <template for:each={searchedAccountData} for:item="record">
+                                    <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation"
+                                        data-name={record.Name}>
+                                        <span class="slds-lookup__item-action slds-lookup__item-action--label"
+                                            role="option">
+                                            <lightning-icon class="slds-icon slds-icon--small slds-icon-text-default"
+                                                icon-name={iconName} alternative-text={objName} size="small">
+                                            </lightning-icon>
+                                            <span class="slds-truncate">{record.Name}</span>
+                                        </span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+
+
+
+
+
+                    </template>-->

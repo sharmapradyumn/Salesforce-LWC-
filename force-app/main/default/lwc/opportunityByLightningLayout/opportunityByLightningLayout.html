@@ -1,0 +1,34 @@
+<template>
+    <!-- Todo manager container-->
+    <lightning-layout class="slds-align_absolute-center slds-text-align_center container">
+
+
+        <!-- Input box-->
+        <lightning-layout-item size="12" small-device-size="12" large-device-size={largePageSize}
+            medium-device-size="10" class="slds-m-top_large">
+            <lightning-layout>
+                <lightning-layout-item size="11">
+                    <label>Name</label>
+                    <lightning-input type="text" label="Opportunity Name" variant="label-hidden"
+                        placeholder="Enter Opportunity Name"></lightning-input>
+                </lightning-layout-item>
+
+
+
+            </lightning-layout>
+
+
+            <lightning-layout>
+                <lightning-layout-item size="11">
+                    <label>Close Date</label>
+                    <lightning-input type="date" label="Close Date" variant="label-hidden"
+                        placeholder="Enter Close Date"></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <!--List of items-->
+
+
+    </lightning-layout>
+</template>

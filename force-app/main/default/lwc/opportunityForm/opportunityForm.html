@@ -1,0 +1,69 @@
+<template>
+    <div class="slds-p-bottom_large slds-p-left_large" style="width:500px">
+        <lightning-record-edit-form object-api-name="Opportunity">
+        
+            <lightning-messages></lightning-messages>
+            <lightning-input-field field-name="Name" id="On">
+                </lightning-input-field>
+            <lightning-input-field field-name="AccountId" id="Oa">
+                </lightning-input-field>
+            <lightning-input-field field-name="StageName" id="Os">
+                </lightning-input-field> 
+            <lightning-input-field field-name="CloseDate" id="Oc">
+                </lightning-input-field> 
+            <lightning-input-field field-name="BillingAddress" id="Ob">
+                </lightning-input-field>
+    
+               <!-- <lightning-layout-item size="11">
+                    <p>Name</p>
+                    <lightning-input type="text" label="Head" variant="label-hidden"
+                        placeholder="Opportunity Name"  ></lightning-input>
+                    <p>Stage</p>
+                    <lightning-input type="text" label="Head" variant="label-hidden"
+                        placeholder="Whats in your mind.." ></lightning-input>
+                </lightning-layout-item> 
+                
+    -->
+            <lightning-button type="submit"
+                              name="submit"
+                              label="Save"  onclick={saveRecord}>
+                </lightning-button>
+        </lightning-record-edit-form>
+        </div>
+    
+</template>
+
+
+
+
+<!--<div class="slds-p-bottom_large slds-p-left_large" style="width:500px">
+    <lightning-record-edit-form object-api-name="Opportunity">
+    
+        <lightning-messages></lightning-messages>
+        <lightning-input-field field-name="Name" id="On">
+            </lightning-input-field>
+        <lightning-input-field field-name="AccountId" id="Oa">
+            </lightning-input-field>
+        <lightning-input-field field-name="StageName" id="Os">
+            </lightning-input-field> 
+        <lightning-input-field field-name="CloseDate" id="Oc">
+            </lightning-input-field> 
+        <lightning-input-field field-name="BillingAddress" id="Ob">
+            </lightning-input-field>
+
+            <lightning-layout-item size="11">
+                <p>Name</p>
+                <lightning-input type="text" label="Head" variant="label-hidden"
+                    placeholder="Opportunity Name"  ></lightning-input>
+                <p>Stage</p>
+                <lightning-input type="text" label="Head" variant="label-hidden"
+                    placeholder="Whats in your mind.." ></lightning-input>
+            </lightning-layout-item> 
+            
+
+        <lightning-button type="submit"
+                          name="submit"
+                          label="Save"  onclick={saveRecord}>
+            </lightning-button>
+    </lightning-record-edit-form>
+    </div>-->
