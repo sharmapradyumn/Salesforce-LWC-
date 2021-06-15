@@ -1,5 +1,6 @@
 import { LightningElement, api, track } from "lwc";
 //import { updateRecord } from 'lightning/uiRecordApi';
+import delSelectedCons from '@salesforce/apex/contactList.deleteContacts';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -14,6 +15,9 @@ export default class DoPaginaton extends LightningElement {
 
     @track draftValues = [];
     @track recordsToDisplay;
+    @track recordsCount = 0;
+    @track buttonLabel = 'Delete Selected Contacts';
+    @track isTrue = false;
 
     totalRecords;
     pageNo;
@@ -25,12 +29,20 @@ export default class DoPaginaton extends LightningElement {
     isLoading = false;
     defaultSortDirection = 'asc';
     sortDirection = 'asc';
-    ortedBy;
+    sortedBy;
+    error;
+    // non-reactive variables
+    selectedRecords = [];
+    refreshTable;
+
+
 
     connectedCallback() {
         this.isLoading = true;
         this.setRecordsToDisplay();
     }
+
+
     setRecordsToDisplay() {
         this.totalRecords = this.records.length;
         this.pageNo = 1;
@@ -42,6 +54,8 @@ export default class DoPaginaton extends LightningElement {
         }
         this.isLoading = false;
     }
+
+
     handleClick(event) {
         let label = event.target.label;
         if (label === "First") {
@@ -74,6 +88,8 @@ export default class DoPaginaton extends LightningElement {
         this.pageNo = this.totalPages;
         this.preparePaginationList();
     }
+
+    
     preparePaginationList() {
         this.isLoading = true;
         let begin = (this.pageNo - 1) * parseInt(this.recordsperpage);
@@ -123,6 +139,7 @@ export default class DoPaginaton extends LightningElement {
     handleRowAction(event) {
         const actionName = event.detail.action.name;
         const row = event.detail.row;
+        console.log("Roww testing rowaction")
         const rowAction = new CustomEvent('actions', {
             detail: { 
                 actionName : actionName,
@@ -137,7 +154,7 @@ export default class DoPaginaton extends LightningElement {
         this.preparePaginationList();
     }
 
-    /*onHandleSort(event) {
+    onHandleSort(event) {
         const { fieldName: sortedBy, sortDirection } = event.detail;
         const cloneData = [...this.recordsToDisplay];
         cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
@@ -162,7 +179,88 @@ export default class DoPaginaton extends LightningElement {
         };
     }
 
-    handleSave(event) {
+
+
+    // Getting selected rows 
+    getSelectedRecords(event) {
+        // getting selected rows
+        const selectedRows = event.detail.selectedRows;
+        
+        this.recordsCount = event.detail.selectedRows.length;
+
+        // this set elements the duplicates if any
+        let conIds = new Set();
+
+        // getting selected record id
+        for (let i = 0; i < selectedRows.length; i++) {
+            conIds.add(selectedRows[i].Id);
+        }
+
+        // coverting to array
+        this.selectedRecords = Array.from(conIds);
+
+        window.console.log('selectedRecords ====> ' +this.selectedRecords);
+    }
+  // delete records process function
+  deleteContacts() {
+    if (this.selectedRecords) {
+        // setting values to reactive variables
+        this.buttonLabel = 'Processing....';
+        this.isTrue = true;
+
+        // calling apex class to delete selected records.
+        this.deleteCons();
+    }
+}
+
+    deleteCons() {
+        delSelectedCons({lstConIds: this.selectedRecords})
+        .then(result => {
+            window.console.log('result ====> ' + result);
+
+            this.buttonLabel = 'Delete Selected Contacts';
+            this.isTrue = false;
+
+            // showing success message
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success!!', 
+                    message: this.recordsCount + ' Contacts are deleted.', 
+                    variant: 'success'
+                }),
+            );
+            
+            // Clearing selected row indexs 
+            this.template.querySelector('lightning-datatable').selectedRows = [];
+
+            this.recordsCount = 0;
+
+            // refreshing table data using refresh apex
+            return refreshApex(this.records);
+
+        })
+        .catch(error => {
+            window.console.log(error);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error while getting Contacts', 
+                    message: error.message, 
+                    variant: 'error'
+                }),
+            );
+        });
+    }  
+
+    addRows() {
+        
+    }
+
+
+
+
+
+
+  /*  handleSave(event) {
         this.isLoading = true;
         const recordInputs =  event.detail.draftValues.slice().map(draft => {
             const fields = Object.assign({}, draft);
